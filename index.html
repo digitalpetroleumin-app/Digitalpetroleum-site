@@ -47,7 +47,21 @@
   nav{position:sticky;top:0;z-index:50;background:rgba(5,8,18,.8);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
   .nav{display:flex;align-items:center;justify-content:space-between;height:78px;gap:14px}
   .brand{display:flex;align-items:center;gap:12px}
-  .brand svg{width:48px;height:48px;filter:drop-shadow(0 0 12px rgba(234,179,8,.3))}
+  .logo-badge{width:58px;height:58px;border-radius:16px;background:#fff;display:grid;place-items:center;padding:5px;box-shadow:0 10px 30px -10px rgba(39,214,232,.45)}
+  .logo-badge img{width:100%;height:100%;object-fit:contain}
+  .photo{position:relative;border-radius:30px;overflow:hidden;border:1px solid rgba(232,185,35,.25);box-shadow:0 50px 100px -40px rgba(0,0,0,.85);aspect-ratio:4/5}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(5,8,18,.85));pointer-events:none}
+  .photo-cap{position:absolute;left:22px;right:22px;bottom:22px;z-index:2}
+  .photo-cap b{font-family:'Playfair Display',serif;font-size:24px;display:block}
+  .photo-cap span{color:#c9d6ea;font-size:14px}
+  .band{position:relative;border-radius:32px;overflow:hidden;border:1px solid var(--line);margin:0 0 40px;min-height:380px;display:flex;align-items:flex-end}
+  .band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .band::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,8,18,.92),rgba(5,8,18,.45) 60%,rgba(5,8,18,.15));z-index:1}
+  .band-body{position:relative;z-index:2;padding:44px;max-width:620px}
+  .band-body h3{font-size:clamp(28px,4vw,42px);margin:14px 0 10px}
+  .band-body p{color:#c9d6ea;font-size:17px}
+  @media(max-width:700px){.band-body{padding:26px}.band{min-height:320px}}
   .brand b{display:block;font-family:'Playfair Display',serif;font-size:20px;line-height:1}
   .brand small{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
   .menu{display:flex;gap:4px;padding:5px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
@@ -68,7 +82,7 @@
   .bar{width:120px;height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
   .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--cyan));border-radius:99px;transition:width 1.6s cubic-bezier(.2,.7,.2,1)}
   /* mock dashboard (animated) */
-  .mock{position:relative;border-radius:30px;padding:22px;background:linear-gradient(160deg,#131f38,#070b15);border:1px solid rgba(232,185,35,.25);box-shadow:0 50px 100px -40px rgba(0,0,0,.85)}
+  .mock-unused{position:relative;border-radius:30px;padding:22px;background:linear-gradient(160deg,#131f38,#070b15);border:1px solid rgba(232,185,35,.25);box-shadow:0 50px 100px -40px rgba(0,0,0,.85)}
   .mock-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
   .mock-top b{font-family:'Playfair Display',serif;font-size:19px}
   .live{font-size:12px;color:var(--mint);display:flex;align-items:center;gap:6px}
@@ -87,7 +101,7 @@
   .t1{top:-18px;right:-14px}
   .t2{bottom:-16px;left:-18px;animation-delay:-2.4s}
   @keyframes float{50%{transform:translateY(-12px)}}
-  @media(max-width:960px){.hero-grid{grid-template-columns:1fr}.mock{max-width:520px;margin:10px auto 0;width:100%}}
+  @media(max-width:960px){.hero-grid{grid-template-columns:1fr}.mock-unused{max-width:520px;margin:10px auto 0;width:100%}}
 
   /* marquee */
   .marq{overflow:hidden;border-block:1px solid var(--line);background:rgba(255,255,255,.02);padding:20px 0;position:relative;z-index:1}
@@ -172,6 +186,40 @@
   .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
   @media(max-width:700px){.sec{padding:76px 0}.sticky{font-size:12px;padding-left:16px}.sticky .btn{padding:10px 14px;font-size:13px}.sticky span.t{display:none}}
+
+  /* in-house visuals: CA, recovery, tank dip */
+  .vis{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center}
+  .vis-card{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:28px;padding:30px;position:relative;overflow:hidden}
+  .vis-card h3{font-size:26px;margin:14px 0 8px}
+  .vis-card p{color:var(--muted);font-size:15.5px}
+  .ledger{display:grid;gap:10px;margin-top:6px}
+  .ledger div{display:flex;justify-content:space-between;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid var(--line);font-size:14.5px;opacity:0;transform:translateX(-14px);animation:slide .6s forwards}
+  .ledger div b{font-family:'Playfair Display',serif;font-size:16px}
+  .ledger div:nth-child(1){animation-delay:.2s}.ledger div:nth-child(2){animation-delay:.5s}.ledger div:nth-child(3){animation-delay:.8s}.ledger div:nth-child(4){animation-delay:1.1s}
+  @keyframes slide{to{opacity:1;transform:none}}
+  .ok2{color:var(--mint)}
+  .steps-r{display:grid;gap:14px;margin-top:6px}
+  .steps-r div{display:flex;gap:14px;align-items:flex-start;color:#c9d2e0;font-size:15px}
+  .steps-r span{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;background:linear-gradient(120deg,#fff1b8,var(--gold));color:#1a1204;font-weight:800;font-size:13px}
+  .tank{display:flex;gap:26px;align-items:center;justify-content:center;margin-top:10px}
+  .cyl{width:120px;height:210px;border-radius:60px 60px 26px 26px;border:2px solid rgba(39,214,232,.5);background:rgba(255,255,255,.03);position:relative;overflow:hidden;box-shadow:inset 0 0 30px rgba(0,0,0,.5)}
+  .liq{position:absolute;left:0;right:0;bottom:0;height:0;background:linear-gradient(180deg,#8ef3ff,var(--cyan) 60%,#0b8fa0);animation:fill 2s cubic-bezier(.2,.7,.2,1) forwards;box-shadow:0 -6px 18px rgba(39,214,232,.4)}
+  .liq::before{content:"";position:absolute;left:-10%;right:-10%;top:-8px;height:16px;border-radius:50%;background:rgba(255,255,255,.35);animation:wave 2.6s ease-in-out infinite}
+  @keyframes fill{to{height:var(--lvl)}}
+  @keyframes wave{50%{transform:translateX(8px)}}
+  .dip{font-family:ui-monospace,Menlo,monospace;font-size:14px;color:var(--muted);line-height:2}
+  .dip b{color:var(--gold2);font-size:20px;font-family:'Playfair Display',serif;display:block}
+  .dash-note{font-size:12.5px;color:var(--muted);margin-top:14px}
+  @media(max-width:800px){.vis{grid-template-columns:1fr}.vis-inner{grid-template-columns:1fr!important}}
+
+  .founder{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:center}
+  .founder-photo{border-radius:28px;overflow:hidden;border:1px solid rgba(232,185,35,.3);box-shadow:0 40px 80px -30px rgba(0,0,0,.8)}
+  .founder-photo img{width:100%;display:block;aspect-ratio:1/1;object-fit:cover}
+  .founder h3{font-size:clamp(30px,4vw,44px);margin:12px 0 6px}
+  .founder .role{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#1a1204;background:linear-gradient(120deg,#fff1b8,var(--gold));padding:7px 14px;border-radius:999px;margin-bottom:16px}
+  .founder p{color:var(--muted);font-size:16.5px;margin-bottom:12px}
+  .founder .sign{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold2);margin-top:10px}
+  @media(max-width:800px){.founder{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -181,7 +229,7 @@
 <nav>
   <div class="wrap nav">
     <a href="#top" class="brand">
-      <svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><use href="#logoMark"/></svg>
+      <span class="logo-badge"><img src="images/logo.png" alt="Digital Petroleum logo"></span>
       <div><b>Digital Petroleum</b><small>Pump OS</small></div>
     </a>
     <div class="menu">
@@ -233,16 +281,12 @@
       <div class="slots"><span>स्लॉट भरे</span><b id="slotCount">0</b><span>/ 99</span><div class="bar"><i id="slotBar"></i></div></div>
     </div>
 
-    <div class="mock" aria-hidden="true">
-      <div class="mock-top"><b>आज का सारांश</b><span class="live">लाइव</span></div>
-      <div class="kpis">
-        <div class="kpi"><small>नोज़ल बिक्री</small><b>₹1,84,250</b></div>
-        <div class="kpi"><small>गल्ला मिलान</small><b style="color:var(--mint)">100%</b></div>
-        <div class="kpi"><small>उधारी बकाया</small><b>₹38,400</b></div>
-        <div class="kpi"><small>टैंक स्तर</small><b>72%</b></div>
+    <div style="position:relative">
+      <div class="photo">
+        <img src="images/manager-station.jpg" alt="पंप पर डिजिटल मैनेजर, PumpSaathi के साथ">
+        <div class="photo-cap"><b>डिजिटल मैनेजर</b><span>हर पंप, हर शिफ्ट, एक ही जगह</span></div>
       </div>
-      <div class="chart" id="chart"></div>
-      <div class="tag-float t1"><small>मालिक मंज़ूरी</small><b class="gold">Approved ✓</b></div>
+      <div class="tag-float t1"><small>आज का मिलान</small><b class="gold">100% ✓</b></div>
       <div class="tag-float t2"><small>रात की रिपोर्ट</small><b class="cyan">11–12 बजे</b></div>
     </div>
   </div>
@@ -264,6 +308,32 @@
       <div class="card rv"><div class="ic">📦</div><h3>स्टॉक मेंटेनेंस</h3><p>ईंधन और ल्यूब का स्टॉक, खरीद और कमी की सूचना, सब एक जगह।</p></div>
       <div class="card rv d1"><div class="ic">🧾</div><h3>उधारी और पार्टी लेजर</h3><p>पार्टी का खाता, गाड़ी नंबर के साथ उधारी, और WhatsApp पर स्टेटमेंट।</p></div>
       <div class="card rv d2"><div class="ic">📈</div><h3>बिक्री और ग्रोथ गाइड</h3><p>बिक्री के ट्रेंड देखें और सुझाव पाएं कि कैसे बिक्री और मुनाफा बढ़े।</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="band rv">
+      <img src="images/software-dashboard.jpg" alt="PumpSaathi डैशबोर्ड">
+      <div class="band-body">
+        <span class="eyebrow">PumpSaathi</span>
+        <h3>रोज़ का हिसाब, <span class="gold">एक नज़र</span> में</h3>
+        <p>बिक्री, नोज़ल ट्रेंड, डेंसिटी और स्टॉक। मालिक हर समय देख सकता है, और रिपोर्ट रात को ही तैयार।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="band rv" style="background-position:center">
+      <img src="images/salesman-shift.jpg" alt="पंप स्टाफ, PumpSaathi के साथ" style="object-position:center">
+      <div class="band-body">
+        <span class="eyebrow">स्टाफ</span>
+        <h3>हर शिफ्ट का <span class="gold">साफ हिसाब</span></h3>
+        <p>मैनेजर और सेल्समैन अपना लॉगिन से काम करते हैं। किसका कितना बिका, सब दर्ज रहता है।</p>
+      </div>
     </div>
   </div>
 </section>
@@ -351,6 +421,14 @@
       <div class="card step rv d2"><div class="n">03</div><h3>कोर्ट में जमा</h3><p>एक कॉपी किसी भी वकील के ज़रिए मजिस्ट्रेट कोर्ट में जमा होगी।</p></div>
       <div class="card step rv d3"><div class="n">04</div><h3>सेटअप शुरू</h3><p>जमा रसीद की फोटो भेजने पर ऐप का सेटअप, नोज़ल और टैंक मैपिंग शुरू।</p></div>
     </div>
+    <div class="band rv" style="margin-top:26px;min-height:300px">
+      <img src="images/agreement-handshake.jpg" alt="एग्रीमेंट पर हस्ताक्षर के बाद हाथ मिलाते हुए">
+      <div class="band-body">
+        <span class="eyebrow">भरोसा</span>
+        <h3>पहले <span class="gold">एग्रीमेंट</span>, फिर काम</h3>
+        <p>हर पंप के साथ लिखित समझौता। दोनों पक्ष जानते हैं कि क्या मिलेगा और क्या ज़िम्मेदारी है।</p>
+      </div>
+    </div>
     <div class="agree rv">
       <div class="ic" style="margin:0">⚖️</div>
       <div style="flex:1;min-width:260px">
@@ -358,6 +436,117 @@
         <p>हर पंप के साथ लिखित और कोर्ट-जमा एग्रीमेंट होता है। काम अधूरा छोड़ने पर ₹10,000 की गारंटी लागू होती है। शर्तें पूरी तरह साफ़ हैं।</p>
       </div>
       <a class="btn btn-ghost" href="Agreement_Sample_Demo.html" target="_blank" rel="noopener">नमूना देखें</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="band rv" style="background-position:center">
+      <img src="images/monitor-dashboard.jpg" alt="मालिक का डैशबोर्ड, कहीं से भी" style="object-position:center">
+      <div class="band-body">
+        <span class="eyebrow">मालिक</span>
+        <h3>कहीं से भी, <span class="cyan">कभी भी</span> देखें</h3>
+        <p>मोबाइल या कंप्यूटर पर पंप का लाइव हिसाब। जब भी जरूरत हो।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="head rv"><span class="eyebrow">सेवाएं और मशीन</span><h2>CA, रिकवरी और <span class="cyan">टैंक डिप</span></h2><p>हर हिसाब एक जगह, हर वसूली सबूत के साथ, और हर टैंक का स्तर साफ।</p></div>
+    <div class="vis">
+      <div class="vis-card rv">
+        <span class="eyebrow">CA डेस्क</span>
+        <h3>हिसाब अपने-आप <span class="gold">मिलता है</span></h3>
+        <p>पेट्रोल-डीज़ल, ल्यूब और टैंकर का हिसाब अलग-अलग तैयार होता है।</p>
+        <div class="ledger">
+          <div><span>पेट्रोल (Non-GST/VAT)</span><b class="ok2">मिलान ✓</b></div>
+          <div><span>ल्यूब (18% GST)</span><b class="ok2">मिलान ✓</b></div>
+          <div><span>टैंकर इनवॉइस और TCS</span><b class="ok2">मिलान ✓</b></div>
+          <div><span>बैंक POS सेटलमेंट</span><b class="ok2">मिलान ✓</b></div>
+        </div>
+      </div>
+      <div class="vis-card rv d1">
+        <span class="eyebrow">रिकवरी डेस्क</span>
+        <h3>उधारी वसूली, <span class="gold">सबूत के साथ</span></h3>
+        <p>हर कदम लिखित और रिकॉर्ड में रहता है। कोई अंदाज़ा नहीं।</p>
+        <div class="steps-r">
+          <div><span>1</span>उधारी पर्ची, गाड़ी नंबर और तारीख का रिकॉर्ड</div>
+          <div><span>2</span>WhatsApp पर रिमाइंडर, हर बार की हिस्ट्री के साथ</div>
+          <div><span>3</span>बकाया न चुके तो वकील से कानूनी नोटिस</div>
+          <div><span>4</span>सबूत की फाइल तैयार, कानूनी प्रक्रिया के अनुसार</div>
+        </div>
+        <p class="dash-note">वसूली की सफलता की गारंटी नहीं होती, कार्रवाई कानूनी प्रक्रिया से होती है।</p>
+      </div>
+      <div class="vis-card rv" style="grid-column:1/-1">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center" class="vis-inner">
+          <div class="tank">
+            <div><div class="cyl"><div class="liq" style="--lvl:72%"></div></div></div>
+            <div class="dip"><small>टैंक 1 (पेट्रोल)</small><b>72%</b>डिप 2.85 मीटर<br>तापमान 31°C</div>
+          </div>
+          <div>
+            <span class="eyebrow">टैंक डिप</span>
+            <h3 style="font-size:26px;margin:14px 0 8px">हर टैंक का स्तर, <span class="cyan">लाइव</span></h3>
+            <p style="color:var(--muted)">डिप से लीटर अपने-आप निकलता है, और तापमान भी साथ में दिखता है। कमी हो तो तुरंत पता चलता है।</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="band rv">
+      <img src="images/ca-ledger.jpg" alt="CA डेस्क का हिसाब लेजर पर">
+      <div class="band-body">
+        <span class="eyebrow">CA डेस्क</span>
+        <h3>पेट्रोल, ल्यूब और <span class="gold">GST का हिसाब</span></h3>
+        <p>पेट्रोल-डीज़ल, ल्यूब और टैंकर का अलग हिसाब, ताकि रिटर्न और ऑडिट आसान रहें।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="band rv">
+      <img src="images/recovery-desk.jpg" alt="रिकवरी डेस्क पर उधारी का हिसाब">
+      <div class="band-body">
+        <span class="eyebrow">रिकवरी डेस्क</span>
+        <h3>उधारी का <span class="cyan">साफ हिसाब</span></h3>
+        <p>हर बकाया का रिकॉर्ड और रिमाइंडर इतिहास। वसूली कानूनी प्रक्रिया से होती है।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:20px">
+  <div class="wrap">
+    <div class="band rv">
+      <img src="images/tank-gauge.jpg" alt="टैंक पर डिजिटल डिप गेज">
+      <div class="band-body">
+        <span class="eyebrow">टैंक डिप</span>
+        <h3>हर टैंक का <span class="gold">लाइव स्तर</span></h3>
+        <p>डिजिटल डिप से लीटर और तापमान तुरंत। कमी हो तो पहले पता चलता है।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="founder" style="padding-top:20px">
+  <div class="wrap">
+    <div class="card founder rv">
+      <div class="founder-photo"><img src="images/founder-neeraj-dev.jpg" alt="Neeraj Dev, Founder & CEO, Digital Petroleum"></div>
+      <div>
+        <span class="role">Founder &amp; CEO</span>
+        <h3>Neeraj Dev</h3>
+        <p>पेट्रोल पंप के रोज़ के काम को आसान और पारदर्शी बनाना, यही Digital Petroleum का मकसद है। हर पंप मालिक को सही हिसाब, सही सलाह और पूरी तसल्ली मिले।</p>
+        <p>हम हर काम लिखित एग्रीमेंट से शुरू करते हैं, ताकि दोनों तरफ की ज़िम्मेदारी साफ रहे।</p>
+        <div class="sign">Neeraj Dev</div>
+      </div>
     </div>
   </div>
 </section>
@@ -432,11 +621,6 @@ const ro = new IntersectionObserver(es => es.forEach(en => { if(en.isIntersectin
 document.querySelectorAll(".rv").forEach(el => ro.observe(el));
 // hero title word animation delay
 document.querySelectorAll(".hero h1 .w").forEach((w,i)=> w.style.animationDelay = (i*0.12)+"s");
-// chart bars
-const chart = document.getElementById("chart");
-[46,62,40,78,58,88,66,94,72,84,60,96].forEach((h,i)=>{
-  const s = document.createElement("span"); s.style.setProperty("--h", h+"%"); s.style.animationDelay = (i*0.06)+"s"; chart.appendChild(s);
-});
 // sticky CTA after hero
 const sticky = document.getElementById("sticky");
 window.addEventListener("scroll", () => sticky.classList.toggle("show", window.scrollY > 700), {passive:true});
