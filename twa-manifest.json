@@ -1,0 +1,42 @@
+{
+  "packageId": "__PACKAGE_ID__",
+  "host": "digitalpetroleumin-app.github.io",
+  "name": "__APP_NAME__",
+  "launcherName": "__APP_NAME__",
+  "display": "standalone",
+  "themeColor": "#0b3d91",
+  "navigationColor": "#040b19",
+  "navigationColorDark": "#040b19",
+  "navigationDividerColor": "#040b19",
+  "navigationDividerColorDark": "#040b19",
+  "backgroundColor": "#040b19",
+  "enableNotifications": true,
+  "startUrl": "/Pumpsaathi/index.html",
+  "iconUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/icon-512.png",
+  "maskableIconUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/icon-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "../android.keystore",
+    "alias": "pumpsaathi"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "__MANIFEST_URL__",
+  "fallbackType": "customtabs",
+  "features": {
+    "locationDelegation": {
+      "enabled": true
+    }
+  },
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/",
+  "minSdkVersion": 21,
+  "orientation": "portrait"
+}

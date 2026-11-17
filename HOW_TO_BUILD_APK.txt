@@ -1,0 +1,9 @@
+# GitHub se Direct PWA ko APK Banane ka Tarika
+
+1. Is ZIP ko extract karke iski saari files apni GitHub repo (Pumpsaathi) ke main folder mein upload/push kar do:
+   - .github/workflows/build-apk.yml
+   - twa-manifest.json
+   - .well-known/assetlinks.json
+   - build-apk-local.sh
+2. GitHub Repo ke **Actions** tab par jao -> **"Build PumpSaathi Android APK from PWA"** par click karo -> **"Run workflow"** dabao.
+3. 2 minute mein green tick aayega -> Niche **Artifacts** se **"PumpSaathi-Release-APK"** download kar lo!
