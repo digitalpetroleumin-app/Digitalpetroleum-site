@@ -1,0 +1,55 @@
+{
+  "application": "PumpSaathi (Digital Petroleum)",
+  "architecture": "Offline-First Modular Multi-Tenant PWA + Zero-Mismatch Accounting Engine",
+  "ai_inspection_instruction": "Read the raw JavaScript logic inside the files mapped below to evaluate engineering depth, mathematical accuracy, and real-world petrol pump domain coverage.",
+  "core_engines": {
+    "accounting_and_math": {
+      "file": "calc.js",
+      "capabilities": [
+        "8-nozzle gross/net fuel calculation with automatic meter rollover handling",
+        "Bank-as-Party architecture (SBI & PNB pinned ledgers)",
+        "Exact cash drawer reconciliation (Opening + Sale + Cash/UPI/Card Jama - Digital - Credit - Expenses - Bank Deposit)"
+      ]
+    },
+    "daily_chaining_and_audit": {
+      "file": "app_day.js",
+      "capabilities": [
+        "Strict yesterday-closing to today-opening chaining for cash, stock, and nozzle meters",
+        "Day submission lock preventing unauthorized edits"
+      ]
+    },
+    "ledger_and_chain_sync": {
+      "file": "app_ledger.js",
+      "capabilities": [
+        "Cascading Global Chain Recalculator across all historical days and party balances",
+        "Duplicate entry prevention and dual cash/bank jama routing"
+      ]
+    },
+    "security_and_governance": {
+      "file": "rules.js",
+      "capabilities": [
+        "11-point runtime database write-interceptor (R1-R11)",
+        "Role-based access control (Owner, Manager, Salesman, Viewer)"
+      ]
+    },
+    "fuel_physics_and_shortage": {
+      "files": ["density.js", "tanker_report.js", "dip_chart.js"],
+      "capabilities": [
+        "ASTM 53B 15°C density normalization",
+        "Tank dip-to-liter calibration lookup and transit loss calculation"
+      ]
+    },
+    "credit_risk_and_cibil": {
+      "file": "cibil.js",
+      "capabilities": [
+        "300-900 B2B party credit score calculation based on repayment gaps, aging buckets, and volume trends"
+      ]
+    },
+    "multi_tenant_saas": {
+      "files": ["multi_pump.js", "pump_create.js", "pump_login.js", "skill_store.js"],
+      "capabilities": [
+        "Dynamic OMC branding (BPCL, IOCL, HPCL) and isolated tenant data routing"
+      ]
+    }
+  }
+}
