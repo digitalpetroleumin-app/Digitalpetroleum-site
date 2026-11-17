@@ -52,13 +52,10 @@ jobs:
           export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$PATH"
           
           yes | sdkmanager --sdk_root="$ANDROID_SDK_ROOT" --licenses > /dev/null 2>&1 || true
-          # Install SDK 33, 34, 35 so whichever version Bubblewrap requests is guaranteed to exist
           sdkmanager --sdk_root="$ANDROID_SDK_ROOT" \
             "platform-tools" \
-            "platforms;android-33" \
             "platforms;android-34" \
             "platforms;android-35" \
-            "build-tools;33.0.2" \
             "build-tools;34.0.0" \
             "build-tools;35.0.0" > /dev/null 2>&1
           
@@ -156,7 +153,7 @@ jobs:
             "isChromeOSOnly": false,
             "isMetaQuest": false,
             "fullScopeUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/",
-            "minSdkVersion": 21,
+            "minSdkVersion": 24,
             "orientation": "portrait"
           }
           EOF
@@ -164,7 +161,10 @@ jobs:
           # 1. Generate Android Project via Bubblewrap
           bubblewrap update --appVersionName="1.0.0" --skipVersionUpgrade
           
-          # 2. Configure Gradle for Java 17 compatibility & SDK path
+          # 2. Force minSdkVersion 24 in app/build.gradle just in case
+          sed -i 's/minSdkVersion [0-9]*/minSdkVersion 24/g' app/build.gradle
+          
+          # 3. Configure Gradle for Java 17 compatibility & SDK path
           echo "sdk.dir=$ANDROID_HOME" > local.properties
           cat <<EOF >> gradle.properties
           
@@ -174,10 +174,10 @@ jobs:
           
           chmod +x ./gradlew
           
-          # 3. Build Release APK with full error log if anything goes wrong
+          # 4. Build Release APK
           ./gradlew assembleRelease --no-daemon --stacktrace
           
-          # 4. Align and Sign APK
+          # 5. Align and Sign APK
           UNSIGNED_APK=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
           BUILD_TOOLS_DIR=$(ls -d "$ANDROID_HOME/build-tools/"* | sort -V | tail -n 1)
           
