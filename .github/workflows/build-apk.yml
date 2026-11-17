@@ -37,8 +37,11 @@ jobs:
 
       - name: Setup Android SDK & Bubblewrap Config
         run: |
-          export ANDROID_SDK_ROOT="${ANDROID_HOME:-$HOME/android-sdk}"
+          export ANDROID_SDK_ROOT="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
           mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools"
+          mkdir -p "$ANDROID_SDK_ROOT/tools/bin"
+          mkdir -p "$ANDROID_SDK_ROOT/platform-tools"
+          
           if [ ! -f "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" ]; then
             curl -sL https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -o /tmp/cmdtools.zip
             unzip -q /tmp/cmdtools.zip -d /tmp/cmdtools
@@ -55,21 +58,22 @@ jobs:
           echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> $GITHUB_ENV
           
           npm install -g @bubblewrap/cli
+          
+          # Write config to BOTH locations Bubblewrap checks on Linux
           mkdir -p ~/.bubblewrap
+          mkdir -p ~/.config/@bubblewrap/cli
+          
           cat <<EOF > ~/.bubblewrap/config.json
           {
             "jdkPath": "$JAVA_HOME",
             "androidSdkPath": "$ANDROID_SDK_ROOT"
           }
           EOF
-          cat ~/.bubblewrap/config.json
+          cp ~/.bubblewrap/config.json ~/.config/@bubblewrap/cli/config.json
 
       - name: Ensure 512x512 App Icon Exists Locally
         run: |
-          python3 -c '
-          import os, zlib, struct
-          from PIL import Image
-          ' 2>/dev/null || pip install Pillow --quiet
+          pip install Pillow --quiet
           python3 -c '
           import os
           from PIL import Image
@@ -93,7 +97,7 @@ jobs:
               -dname "CN=Rohit Dev, OU=Digital Petroleum, O=Digital Petroleum, L=Almora, ST=Uttarakhand, C=IN"
           fi
 
-      - name: Initialize & Build TWA APK via Bubblewrap
+      - name: Initialize & Build TWA APK
         env:
           BUBBLEWRAP_KEYSTORE_PASSWORD: Pumpsaathi@2026
           BUBBLEWRAP_KEY_PASSWORD: Pumpsaathi@2026
@@ -147,23 +151,33 @@ jobs:
           }
           EOF
           
-          # Re-verify ~/.bubblewrap/config.json right before running bubblewrap
-          mkdir -p ~/.bubblewrap
-          cat <<EOF > ~/.bubblewrap/config.json
-          {
-            "jdkPath": "$JAVA_HOME",
-            "androidSdkPath": "$ANDROID_HOME"
-          }
-          EOF
-          
+          # Generate Android Gradle project using Bubblewrap update
           bubblewrap update --appVersionName="1.0.0" --skipVersionUpgrade
-          bubblewrap build --skipPwaValidation
+          
+          # Point Gradle directly to the Android SDK
+          echo "sdk.dir=$ANDROID_HOME" > local.properties
+          chmod +x ./gradlew
+          
+          # Compile Release APK directly via Gradle (Bypasses Bubblewrap's buggy SDK check!)
+          ./gradlew assembleRelease --no-daemon
+          
+          # Find the unsigned APK, align it, and sign it using Android Build Tools
+          UNSIGNED_APK=$(find app/build/outputs/apk/release -name "*-unsigned.apk" | head -n 1)
+          BUILD_TOOLS_DIR=$(ls -d "$ANDROID_HOME/build-tools/"* | sort -V | tail -n 1)
+          
+          "$BUILD_TOOLS_DIR/zipalign" -v -p 4 "$UNSIGNED_APK" app-release-aligned.apk
+          "$BUILD_TOOLS_DIR/apksigner" sign \
+            --ks "$GITHUB_WORKSPACE/android.keystore" \
+            --ks-key-alias pumpsaathi \
+            --ks-pass pass:Pumpsaathi@2026 \
+            --key-pass pass:Pumpsaathi@2026 \
+            --out app-release-signed.apk \
+            app-release-aligned.apk
+            
           kill $SERVER_PID || true
 
       - name: Upload Signed APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: PumpSaathi-Release-APK
-          path: |
-            twa-build/app-release-signed.apk
-            twa-build/*signed.apk
+          path: twa-build/app-release-signed.apk
