@@ -1,0 +1,106 @@
+name: Build PumpSaathi Android APK from PWA
+
+on:
+  workflow_dispatch:
+    inputs:
+      pwa_manifest_url:
+        description: 'Live PWA manifest.json URL'
+        required: true
+        default: 'https://digitalpetroleumin-app.github.io/Pumpsaathi/manifest.json'
+      app_name:
+        description: 'Android App Name'
+        required: true
+        default: 'PumpSaathi'
+      package_id:
+        description: 'Android Package ID'
+        required: true
+        default: 'shop.digitalpetroleum.pumpsaathi'
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Bubblewrap CLI
+        run: npm install -g @bubblewrap/cli
+
+      - name: Generate Keystore if not present
+        run: |
+          if [ ! -f android.keystore ]; then
+            keytool -genkeypair -v -keystore android.keystore -alias pumpsaathi \
+              -keyalg RSA -keysize 2048 -validity 10000 \
+              -storepass Pumpsaathi@2026 -keypass Pumpsaathi@2026 \
+              -dname "CN=Rohit Dev, OU=Digital Petroleum, O=Digital Petroleum, L=Almora, ST=Uttarakhand, C=IN"
+          fi
+
+      - name: Initialize & Build TWA APK via Bubblewrap
+        run: |
+          mkdir -p twa-build && cd twa-build
+          cat <<EOF > twa-manifest.json
+          {
+            "packageId": "${{ github.event.inputs.package_id }}",
+            "host": "digitalpetroleumin-app.github.io",
+            "name": "${{ github.event.inputs.app_name }}",
+            "launcherName": "${{ github.event.inputs.app_name }}",
+            "display": "standalone",
+            "themeColor": "#0b3d91",
+            "navigationColor": "#040b19",
+            "navigationColorDark": "#040b19",
+            "navigationDividerColor": "#040b19",
+            "navigationDividerColorDark": "#040b19",
+            "backgroundColor": "#040b19",
+            "enableNotifications": true,
+            "startUrl": "/Pumpsaathi/index.html",
+            "iconUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/icon-512.png",
+            "maskableIconUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/icon-512.png",
+            "splashScreenFadeOutDuration": 300,
+            "signingKey": {
+              "path": "../android.keystore",
+              "alias": "pumpsaathi"
+            },
+            "appVersionName": "1.0.0",
+            "appVersionCode": 1,
+            "shortcuts": [],
+            "generatorApp": "bubblewrap-cli",
+            "webManifestUrl": "${{ github.event.inputs.pwa_manifest_url }}",
+            "fallbackType": "customtabs",
+            "features": {
+              "locationDelegation": {
+                "enabled": true
+              }
+            },
+            "alphaDependencies": {
+              "enabled": false
+            },
+            "enableSiteSettingsShortcut": true,
+            "isChromeOSOnly": false,
+            "isMetaQuest": false,
+            "fullScopeUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/",
+            "minSdkVersion": 21,
+            "orientation": "portrait"
+          }
+          EOF
+          yes "" | bubblewrap update --skipPwaValidation || true
+          export BUBBLEWRAP_KEYSTORE_PASSWORD=Pumpsaathi@2026
+          export BUBBLEWRAP_KEY_PASSWORD=Pumpsaathi@2026
+          bubblewrap build --skipPwaValidation
+
+      - name: Upload Signed APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PumpSaathi-Release-APK
+          path: twa-build/app-release-signed.apk
