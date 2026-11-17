@@ -35,8 +35,19 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Bubblewrap CLI
-        run: npm install -g @bubblewrap/cli
+      - name: Setup Android SDK & Accept Licenses
+        uses: android-actions/setup-android@v3
+
+      - name: Configure Bubblewrap CLI (Zero-Prompt Mode)
+        run: |
+          npm install -g @bubblewrap/cli
+          mkdir -p ~/.bubblewrap
+          cat <<EOF > ~/.bubblewrap/config.json
+          {
+            "jdkPath": "$JAVA_HOME",
+            "androidSdkPath": "$ANDROID_HOME"
+          }
+          EOF
 
       - name: Generate Keystore if not present
         run: |
@@ -94,7 +105,7 @@ jobs:
             "orientation": "portrait"
           }
           EOF
-          yes "" | bubblewrap update --skipPwaValidation || true
+          bubblewrap update --skipPwaValidation
           export BUBBLEWRAP_KEYSTORE_PASSWORD=Pumpsaathi@2026
           export BUBBLEWRAP_KEY_PASSWORD=Pumpsaathi@2026
           bubblewrap build --skipPwaValidation
