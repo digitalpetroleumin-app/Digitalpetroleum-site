@@ -101,7 +101,7 @@
   }
 
   function isSkillActive(skillId) {
-    if (PID() === 'mazda') return true; // Mazda has full access
+    return true; // All features unlocked for every user & demo
     const map = getUnlockedMap();
     if (map['vip_all'] && map['vip_all'].expiresAt > Date.now()) return true;
     const item = map[skillId];

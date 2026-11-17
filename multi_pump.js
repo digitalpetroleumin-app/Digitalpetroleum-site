@@ -9,7 +9,7 @@
   'use strict';
   window.PUMP_SYSTEM = window.PUMP_SYSTEM || {};
   const PS = window.PUMP_SYSTEM;
-  const MAZDA = 'mazda';
+  const MAZDA = 'mazda'; const DEFAULT_PUMP = 'pumpsaathi_main';
 
   /* ---------- 1. ब्रांड + वेक्टर लोगो ---------- */
   const uri = svg => 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
@@ -90,7 +90,7 @@
          Key 'pp_' से शुरू होनी चाहिए — 'mazda_' वाली keys पंप के हिसाब से बदल जाती हैं (ऊपर देखें) */
       if (isStandalone()) { const h = localStorage.getItem('pp_home_pump'); if (h) return h; }
     } catch (e) { }
-    return MAZDA;
+    return DEFAULT_PUMP;
   }
   PS.activePumpId = requestedPumpId();
   /* PS.ready: पंप की सेटिंग लोड होने (या फ़ेल होने) पर resolve. लॉगिन इसके बाद ही चलेगा */
@@ -124,7 +124,7 @@
 
   PS.logoFor = function (cfg) {
     if (!cfg) return PS.LOGOS.bpcl;
-    if (cfg.id === MAZDA || cfg.isMain) return './logo.png';
+    if (cfg.id === MAZDA || cfg.id === DEFAULT_PUMP || cfg.isMain) return './logo.png';
     const sl = PS.slotLogos(cfg); if (sl) return sl.login;
     const c = cfg.customLogo || cfg.logoData || '';
     if (c && (c.indexOf('data:image') === 0 || /^https?:/.test(c))) return c;
