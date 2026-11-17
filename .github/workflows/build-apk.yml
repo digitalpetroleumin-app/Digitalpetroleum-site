@@ -104,7 +104,7 @@ jobs:
             "orientation": "portrait"
           }
           EOF
-          bubblewrap update --skipPwaValidation
+          yes "" | bubblewrap update --appVersionName="1.0.0" --skipPwaValidation
           export BUBBLEWRAP_KEYSTORE_PASSWORD=Pumpsaathi@2026
           export BUBBLEWRAP_KEY_PASSWORD=Pumpsaathi@2026
           bubblewrap build --skipPwaValidation
