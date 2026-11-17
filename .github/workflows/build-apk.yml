@@ -48,6 +48,22 @@ jobs:
           }
           EOF
 
+      - name: Ensure 512x512 App Icon Exists Locally
+        run: |
+          python3 -c '
+          import os, zlib, struct
+          if not os.path.exists("icon-512.png"):
+              if os.path.exists("logo.png"):
+                  import shutil; shutil.copy("logo.png", "icon-512.png")
+              else:
+                  w, h = 512, 512
+                  raw = b"".join(b"\x00" + b"\x0b\x3d\x91\xff" * w for _ in range(h))
+                  def chunk(t, d):
+                      return struct.pack(">I", len(d)) + t + d + struct.pack(">I", zlib.crc32(t + d) & 0xffffffff)
+                  png = b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 6, 0, 0, 0)) + chunk(b"IDAT", zlib.compress(raw)) + chunk(b"IEND", b"")
+                  open("icon-512.png", "wb").write(png)
+          '
+
       - name: Generate Keystore if not present
         run: |
           if [ ! -f android.keystore ]; then
@@ -59,6 +75,9 @@ jobs:
 
       - name: Initialize & Build TWA APK via Bubblewrap
         run: |
+          python3 -m http.server 8765 &
+          SERVER_PID=$!
+          sleep 2
           mkdir -p twa-build && cd twa-build
           cat <<EOF > twa-manifest.json
           {
@@ -75,8 +94,8 @@ jobs:
             "backgroundColor": "#040b19",
             "enableNotifications": true,
             "startUrl": "/Pumpsaathi/index.html",
-            "iconUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/icon-512.png",
-            "maskableIconUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/icon-512.png",
+            "iconUrl": "http://127.0.0.1:8765/icon-512.png",
+            "maskableIconUrl": "http://127.0.0.1:8765/icon-512.png",
             "splashScreenFadeOutDuration": 300,
             "signingKey": {
               "path": "../android.keystore",
@@ -108,6 +127,7 @@ jobs:
           export BUBBLEWRAP_KEYSTORE_PASSWORD=Pumpsaathi@2026
           export BUBBLEWRAP_KEY_PASSWORD=Pumpsaathi@2026
           bubblewrap build --skipPwaValidation
+          kill $SERVER_PID || true
 
       - name: Upload Signed APK Artifact
         uses: actions/upload-artifact@v4
