@@ -1,7 +1,7 @@
 {
-  "name": "pumpsaathi",
+  "name": "mazda-pump-app",
   "version": "3.0.0",
-  "description": "PumpSaathi \u2014 Smart Petrol Pump OS (PWA)",
+  "description": "Mazda Oil Company Petrol Pump Management App",
   "scripts": {
     "build": "echo 'Deploying static files & functions'"
   },

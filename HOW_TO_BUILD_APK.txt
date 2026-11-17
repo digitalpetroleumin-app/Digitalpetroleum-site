@@ -1,36 +1,9 @@
-PumpSaathi — GitHub se PWA ko Android APK banana
-=================================================
+# GitHub se Direct PWA ko APK Banane ka Tarika
 
-0. Pehle repo (Pumpsaathi) mein GitHub Pages ON hona chahiye, taaki
-   https://digitalpetroleumin-app.github.io/Pumpsaathi/manifest.json khule.
-
-1. ZIP extract karke saari files repo ke main folder mein daalo.
-   PHONE BROWSER dot-wale folders skip kar deta hai, isliye GitHub par
-   "Add file -> Create new file" se in teen ko path likh kar banao
-   (content zip ki same-naam file se copy karo):
-     .github/workflows/build-apk.yml
-     .well-known/assetlinks.json
-     .nojekyll            (khaali file - isse .well-known GitHub Pages par chalta hai)
-
-2. (Zaroori, ek baar) Signing key banao — kisi laptop/Termux par:
-     KS_PASS='strong-password' ./build-apk-local.sh
-   Ye ANDROID_KEYSTORE_BASE64 print karega. Repo -> Settings -> Secrets ->
-   Actions mein 3 secret banao:
-     ANDROID_KEYSTORE_BASE64   (print hui lambi string)
-     ANDROID_KEYSTORE_PASSWORD (aapka KS_PASS)
-     ANDROID_KEY_ALIAS         (pumpsaathi)
-   Bina secrets ke bhi build chalega, par wo sirf TEMPORARY test APK hoga
-   (har baar nayi key, update install nahi hoga, Play Store ke liye bekaar).
-   Keystore file aur password kabhi repo mein commit mat karna.
-
-3. Actions tab -> "Build PumpSaathi Android APK from PWA" -> Run workflow.
-   Pehli baar kuch minute lag sakte hain. Artifacts se APK download karo.
-
-4. Full-screen (bina address bar) app ke liye Digital Asset Links chahiye:
-   build summary mein jo SHA-256 fingerprint aaye wo assetlinks.json mein daalo.
-   DHYAN: assetlinks.json domain ke ROOT par chahiye:
-     https://digitalpetroleumin-app.github.io/.well-known/assetlinks.json
-   Project repo "Pumpsaathi" us root ko serve nahi kar sakta. Iske liye
-   "digitalpetroleumin-app.github.io" naam ki alag repo banao aur usme
-   .well-known/assetlinks.json + .nojekyll daalo. Ye na karo to APK phir bhi
-   chalega, bas upar browser ki address bar dikhegi.
+1. Is ZIP ko extract karke iski saari files apni GitHub repo (Pumpsaathi) ke main folder mein upload/push kar do:
+   - .github/workflows/build-apk.yml
+   - twa-manifest.json
+   - .well-known/assetlinks.json
+   - build-apk-local.sh
+2. GitHub Repo ke **Actions** tab par jao -> **"Build PumpSaathi Android APK from PWA"** par click karo -> **"Run workflow"** dabao.
+3. 2 minute mein green tick aayega -> Niche **Artifacts** se **"PumpSaathi-Release-APK"** download kar lo!

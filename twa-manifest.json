@@ -1,8 +1,8 @@
 {
-  "packageId": "shop.digitalpetroleum.pumpsaathi",
+  "packageId": "__PACKAGE_ID__",
   "host": "digitalpetroleumin-app.github.io",
-  "name": "PumpSaathi",
-  "launcherName": "PumpSaathi",
+  "name": "__APP_NAME__",
+  "launcherName": "__APP_NAME__",
   "display": "standalone",
   "themeColor": "#0b3d91",
   "navigationColor": "#040b19",
@@ -16,14 +16,14 @@
   "maskableIconUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/icon-512.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
-    "path": "./android.keystore",
+    "path": "../android.keystore",
     "alias": "pumpsaathi"
   },
   "appVersionName": "1.0.0",
   "appVersionCode": 1,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
-  "webManifestUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/manifest.json",
+  "webManifestUrl": "__MANIFEST_URL__",
   "fallbackType": "customtabs",
   "features": {
     "locationDelegation": {

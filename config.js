@@ -1,6 +1,9 @@
-/* ====== PumpSaathi Universal Multi-Tenant Configuration ====== */
-window.CFG = {
-  firebase: {
+/* ====== PumpSaathi Multi-Tenant + Dedicated Per-Pump Firebase Architecture ====== */
+(function () {
+  'use strict';
+
+  // Master Control Firebase (SuperAdmin Registry)
+  const MASTER_FIREBASE = {
     apiKey: "AIzaSyA48iKeSn1lEAw6WBdKI2tuViGY9H8DWcs",
     authDomain: "mazda---pump.firebaseapp.com",
     projectId: "mazda---pump",
@@ -8,76 +11,79 @@ window.CFG = {
     messagingSenderId: "966160602555",
     appId: "1:966160602555:web:545bf1f95e2e94d292e09e",
     measurementId: "G-W4FED5NHJD"
-  },
+  };
 
-  superAdminEmails: ["neerajdevnik@gmail.com", "neeraj@mazda.in", "neeraj@mazda-pump.in"],
-  superAdminUpi: "neerajdevnik-2@okhdfcbank",
-  vapidKey: "",
+  let pid = '';
+  try {
+    const q = new URLSearchParams(location.search);
+    pid = (q.get('p') || q.get('pump') || localStorage.getItem('ps_active_pump') || '').toLowerCase().trim();
+  } catch (e) {}
 
-  ...(function () {
-    let pid = 'pumpsaathi_main';
+  // Check if this specific pump has its OWN dedicated Firebase project config saved!
+  let activeFirebase = MASTER_FIREBASE;
+  let dedicatedPumpMeta = null;
+  if (pid) {
     try {
-      const q = new URLSearchParams(location.search);
-      pid = (q.get('p') || q.get('pump') || localStorage.getItem('ps_active_pump') || 'pumpsaathi_main').toLowerCase().trim();
-    } catch (e) { }
-    if (pid === 'mazda') {
-      return {
-        ownerEmail: "neeraj@mazda-pump.in",
-        ownerPin: "9999",
-        managerEmail: "manager@mazda-pump.in",
-        salesmen: [
-          { id: "manoj", name: "Manoj", pin: "1234", phone: "9876543211", active: true },
-          { id: "rohit", name: "Rohit", pin: "1104", phone: "8077083874", active: true },
-          { id: "chamu", name: "Chamu", pin: "2233", phone: "9876543213", active: true }
-        ]
-      };
-    }
-    return {
-      ownerEmail: "demo@pumpsaathi.in",
-      ownerPin: "1234",
-      managerEmail: "manager@pumpsaathi.in",
-      salesmen: [
-        { id: "demo_sm1", name: "Rajesh (Demo Salesman)", pin: "1111", phone: "9876500001", active: true },
-        { id: "demo_sm2", name: "Amit (Demo Salesman)", pin: "2222", phone: "9876500002", active: true }
-      ]
-    };
-  })(),
+      const savedRegistry = JSON.parse(localStorage.getItem('ps_pumps_registry') || '{}');
+      if (savedRegistry[pid]) {
+        dedicatedPumpMeta = savedRegistry[pid];
+        if (dedicatedPumpMeta.firebaseConfig && dedicatedPumpMeta.firebaseConfig.apiKey && dedicatedPumpMeta.firebaseConfig.projectId) {
+          activeFirebase = dedicatedPumpMeta.firebaseConfig;
+        }
+      }
+    } catch (e) {}
+  }
 
-  pump: (function () {
-    let pid = 'pumpsaathi_main';
-    try {
-      const q = new URLSearchParams(location.search);
-      pid = (q.get('p') || q.get('pump') || localStorage.getItem('ps_active_pump') || 'pumpsaathi_main').toLowerCase().trim();
-    } catch (e) { }
-    if (pid === 'mazda') {
-      return {
-        name: "माज़दा ऑयल कंपनी (Live Demo)", nameEn: "Mazda Oil Company (Demo)", dealer: "Bharat Petroleum Dealer",
-        roCode: "BPCL-UK-263645", address: "बमस्यूँ, रानीखेत रोड, अल्मोड़ा (263645)", addressEn: "Bamsyun, Ranikhet Road, Almora - 263645",
-        phone: "8077083874", fssai: "", gstin: "", upi: "paytmqr621vlg@ptys", upiName: "Mazda Oil Company",
-        merchant: { mc: "5541", mode: "02", orgid: "159011", mid: "", sign: "" }
-      };
-    }
-    return {
+  window.CFG = {
+    masterFirebase: MASTER_FIREBASE,
+    firebase: activeFirebase,
+    dedicatedPumpMeta: dedicatedPumpMeta,
+    activePumpSlug: pid,
+
+    // Strictly SuperAdmin Only until a Pump is created and selected
+    superAdminEmails: ["neerajdevnik@gmail.com", "neeraj@mazda.in", "neeraj@mazda-pump.in"],
+    superAdminUpi: "neerajdevnik-2@okhdfcbank",
+    vapidKey: "",
+
+    ownerEmail: dedicatedPumpMeta ? (dedicatedPumpMeta.ownerEmail || "") : "",
+    ownerPin: dedicatedPumpMeta ? (dedicatedPumpMeta.ownerPin || "") : "",
+    managerEmail: dedicatedPumpMeta ? (dedicatedPumpMeta.managerEmail || "") : "",
+    salesmen: dedicatedPumpMeta && Array.isArray(dedicatedPumpMeta.salesmen) ? dedicatedPumpMeta.salesmen : [],
+
+    pump: dedicatedPumpMeta ? {
+      name: dedicatedPumpMeta.name || "Petrol Pump",
+      nameEn: dedicatedPumpMeta.nameEn || dedicatedPumpMeta.name || "Petrol Pump",
+      dealer: dedicatedPumpMeta.dealer || "OMC Dealer",
+      roCode: dedicatedPumpMeta.roCode || "",
+      address: dedicatedPumpMeta.address || "",
+      addressEn: dedicatedPumpMeta.addressEn || dedicatedPumpMeta.address || "",
+      phone: dedicatedPumpMeta.phone || "",
+      fssai: dedicatedPumpMeta.fssai || "",
+      gstin: dedicatedPumpMeta.gstin || "",
+      upi: dedicatedPumpMeta.upi || "",
+      upiName: dedicatedPumpMeta.upiName || dedicatedPumpMeta.nameEn || "Petrol Pump",
+      merchant: {}
+    } : {
       name: "PumpSaathi — पंप साथी",
       nameEn: "PumpSaathi — Smart Petrol Pump OS",
-      dealer: "All India Petrol Pump Management OS",
-      roCode: "PS-DEMO-01",
-      address: "Smart Forecourt & Cloud ERP",
-      addressEn: "Smart Forecourt & Cloud ERP",
-      phone: "8077083874",
+      dealer: "SuperAdmin Multi-Firebase Cloud Platform",
+      roCode: "",
+      address: "No Pump Selected (Blank Mode — Add Pump via SuperAdmin)",
+      addressEn: "Blank Mode — Add Pump via SuperAdmin",
+      phone: "",
       fssai: "",
       gstin: "",
-      upi: "neerajdevnik-2@okhdfcbank",
+      upi: "",
       upiName: "PumpSaathi",
       merchant: {}
-    };
-  })(),
+    },
 
-  loginDomain: "pumpsaathi.in",
-  testing: 5,
-  activeNozzles: ['p1', 'p2', 'p3', 'p4', 'd1', 'd2', 'd3', 'd4'],
-  stockTolerance: 25,
-  meterMax: 10000000,
-  defaultRateP: 100.23,
-  defaultRateD: 95.68
-};
+    loginDomain: "pumpsaathi.in",
+    testing: 5,
+    activeNozzles: ['p1', 'p2', 'p3', 'p4', 'd1', 'd2', 'd3', 'd4'],
+    stockTolerance: 25,
+    meterMax: 10000000,
+    defaultRateP: 100.23,
+    defaultRateD: 95.68
+  };
+})();
