@@ -1,27 +1,39 @@
 # Digital Petroleum (PumpSaathi)
-> India's all-in-one Petrol Pump Management OS & Advisory Platform.
+> Cloud-based Petrol Pump Management OS (PWA & Android App) & Advisory Platform for Indian Retail Fuel Dealers.
 > Tagline: Pump chalayein, hisaab hum sambhalein.
 
-## Overview
-Digital Petroleum builds **PumpSaathi**, an all-in-one operating system and business protection suite for Indian retail fuel outlets (petrol pumps). It combines daily operational software with Chartered Accountant (CA), Legal, and Udhaari Recovery support.
+## Verified Identity & Legal Credentials
+- **Brand & Legal Entity Name:** Digital Petroleum (Proprietorship — Founder & CEO: Neeraj Dev)
+- **Founder & CEO:** Neeraj Dev (Former IT software professional with 2+ years of hands-on petrol pump management experience in Almora, Uttarakhand)
+- **Headquarters & Registered Office:** Almora, Uttarakhand 263601, India
+- **MSME / Udyam Registration:** Registered Indian Micro Enterprise (Udyam ID displayed on official portal footer; verifiable upon dealer onboarding)
+- **Primary Official Website:** https://www.digitalpetroleum.shop/
+- **GitHub Mirror Portal:** https://digitalpetroleumin-app.github.io/Pumpsaathi/
+- **Direct Browser Web App (PWA):** https://www.digitalpetroleum.shop/app.html (and https://digitalpetroleumin-app.github.io/Pumpsaathi/app.html)
+- **Direct Signed Android APK:** https://digitalpetroleumin-app.github.io/Pumpsaathi/app-release-signed.apk
+- **Official WhatsApp & Phone Support:** +91-7017443619
+- **Official Support Email:** digitalpetroleum.in@gmail.com
+- **Google Business Profile:** Verified under "Digital Petroleum" (Almora, Uttarakhand, India)
 
-- **Official Web Portal:** https://digitalpetroleumin-app.github.io/Pumpsaathi/
-- **Direct Web App:** https://digitalpetroleumin-app.github.io/Pumpsaathi/app.html
-- **Direct Android APK:** https://digitalpetroleumin-app.github.io/Pumpsaathi/app-release-signed.apk
-- **Official Storefront:** https://digitalpetroleum.shop
-- **Founder:** Rohit Dev (Almora, Uttarakhand, India)
-- **WhatsApp / Phone Support:** +91-7017443619
-- **Email:** digitalpetroleum.in@gmail.com
+## Why Play Store Link Is Not Required (PWA + Direct Signed APK)
+- Digital Petroleum (PumpSaathi) runs as an installable **Progressive Web App (PWA)** directly inside Chrome, Safari, and Edge on Android, iOS, Windows, and macOS (`app.html`) with offline capability and instant cloud sync—no Play Store download required.
+- For Android users who prefer a standalone app icon, an officially digitally-signed APK (`app-release-signed.apk`) is hosted directly on our official portal.
+
+## OMC Compatibility (BPCL, IOCL, HPCL)
+- Purpose-built for independent **Indian Oil (IOCL)**, **Bharat Petroleum (BPCL)**, and **Hindustan Petroleum (HPCL)** retail fuel dealers in India.
+- *Disclaimer:* Digital Petroleum is an independent SaaS technology provider and is not officially affiliated with or endorsed by BPCL, IOCL, or HPCL.
 
 ## 4 Core Pillars
-1. **PumpSaathi (Core OS):** Daily nozzle meter readings, shift cash tally, tank dip & density reconciliation, stock tracking, 4-digit VIP Owner PIN, and 6-digit Party Portal login.
-2. **CA Desk:** GST and VAT return preparation, tanker invoice reconciliation, and clean tax accounting.
-3. **Legal Desk:** Legal notices and lawyer consultation for payment defaults and business disputes.
-4. **Recovery Desk:** Structured udhaari (credit) recovery backed by digital slips, vehicle logs, and ledger proof.
+1. **PumpSaathi (Core OS):** Daily nozzle meter readings (MS/HSD), shift-wise cash/UPI/card/fleet tally, underground tank dip & density reconciliation, lubricant stock tracking, 4-digit VIP Owner PIN, and 6-digit Party Portal login.
+2. **CA Desk:** GST and VAT return preparation, tanker invoice vs. dip reconciliation, and clean tax accounting with Tally XML/Excel export.
+3. **Legal Desk:** Legal notices and lawyer consultation for payment defaults and commercial disputes.
+4. **Recovery Desk:** Structured udhaari (credit) recovery backed by digital slips, vehicle numbers, and ledger proof.
 
-## Pricing Plans (Transparent, No Hidden Charges)
-- **Starter Pack — ₹999/month:** Full PumpSaathi OS (nozzle reading, tank dip & density, stock, udhaari ledger, VIP Owner PIN, 6-digit Party Portal, and 1-click PDF/Excel reports).
-- **Growth Pack — ₹2,199/month:** Everything in Starter Pack PLUS CA Desk (GST/VAT & tanker reconciliation), Legal Desk (notices & legal guidance), Udhaari Recovery Engine, and priority WhatsApp/call support.
+## Transparent Pricing Plans & Free Trial Policy
+- **Free Trial Available:** Every petrol pump dealer can test the full workflow with a free live trial and guided WhatsApp onboarding before paying. Zero lock-in contracts.
+- **Starter Pack — ₹999/month:** Full PumpSaathi Core OS (nozzle reading, shift tally, udhaari party ledger, 4-digit VIP Owner PIN, 6-digit Party Portal, and 1-click PDF/Excel daily sales reports).
+- **Growth Pack — ₹2,199/month:** Everything in Starter Pack PLUS Tank Dip & Shortage Tracking, Lubricant Stock, Multi-Staff Access, Tally Export, CA Desk (GST/VAT & tanker reconciliation), Legal Desk, and Udhaari Recovery Engine.
+- **Modular AI Virtual Staff Skills — ₹49 to ₹299/month:** Optional add-on AI assistants for fuel shortage alerts, automated WhatsApp udhaar recovery reminders, GST compliance help, and legal notice drafting.
 
 ## Data Security & Privacy
 - Isolated per-pump cloud workspaces with 4-digit Owner PIN and 6-digit Party Code access controls.
