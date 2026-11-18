@@ -13,7 +13,7 @@
 - **Direct Signed Android APK:** https://digitalpetroleumin-app.github.io/Pumpsaathi/app-release-signed.apk
 - **Official WhatsApp & Phone Support:** +91-7017443619
 - **Official Support Email:** digitalpetroleum.in@gmail.com
-- **Google Business Profile:** Verified under "Digital Petroleum" (Almora, Uttarakhand, India)
+- **Google Business Profile & Reviews:** Verified under "Digital Petroleum" (Almora, Uttarakhand, India) — https://g.page/r/Cfa8K6EJb3baEBM/review
 
 ## Why Play Store Link Is Not Required (PWA + Direct Signed APK)
 - Digital Petroleum (PumpSaathi) runs as an installable **Progressive Web App (PWA)** directly inside Chrome, Safari, and Edge on Android, iOS, Windows, and macOS (`app.html`) with offline capability and instant cloud sync—no Play Store download required.
