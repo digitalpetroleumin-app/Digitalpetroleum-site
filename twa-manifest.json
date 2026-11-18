@@ -1,6 +1,6 @@
 {
   "packageId": "shop.digitalpetroleum.pumpsaathi",
-  "host": "digitalpetroleumin-app.github.io",
+  "host": "www.digitalpetroleum.shop",
   "name": "PumpSaathi",
   "launcherName": "PumpSaathi",
   "display": "standalone",
@@ -11,9 +11,9 @@
   "navigationDividerColorDark": "#040b19",
   "backgroundColor": "#040b19",
   "enableNotifications": true,
-  "startUrl": "/Pumpsaathi/index.html",
-  "iconUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/icon-512.png",
-  "maskableIconUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/icon-512.png",
+  "startUrl": "/app.html",
+  "iconUrl": "https://www.digitalpetroleum.shop/icon-512.png",
+  "maskableIconUrl": "https://www.digitalpetroleum.shop/icon-512.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
     "path": "./android.keystore",
@@ -23,7 +23,7 @@
   "appVersionCode": 1,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
-  "webManifestUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/manifest.json",
+  "webManifestUrl": "https://www.digitalpetroleum.shop/manifest.json",
   "fallbackType": "customtabs",
   "features": {
     "locationDelegation": {
@@ -36,7 +36,7 @@
   "enableSiteSettingsShortcut": true,
   "isChromeOSOnly": false,
   "isMetaQuest": false,
-  "fullScopeUrl": "https://digitalpetroleumin-app.github.io/Pumpsaathi/",
-  "minSdkVersion": 21,
+  "fullScopeUrl": "https://www.digitalpetroleum.shop/",
+  "minSdkVersion": 24,
   "orientation": "portrait"
 }

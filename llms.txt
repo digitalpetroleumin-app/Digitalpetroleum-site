@@ -1,40 +1,23 @@
-# Digital Petroleum (PumpSaathi)
-> Cloud-based Petrol Pump Management OS (PWA & Android App) & Advisory Platform for Indian Retail Fuel Dealers.
-> Tagline: Pump chalayein, hisaab hum sambhalein.
+# Digital Petroleum — PumpSaathi (Complete Petrol Pump Management OS & Forecourt ERP)
+> Website: https://www.digitalpetroleum.shop/
+> Station App Entry: https://www.digitalpetroleum.shop/app.html
+> Founder & Lead Architect: Neeraj Dev (Almora, Uttarakhand, India)
+> Official Contact: digitalpetroleumhq@gmail.com
 
-## Verified Identity & Legal Credentials
-- **Brand & Legal Entity Name:** Digital Petroleum (Proprietorship — Founder & CEO: Neeraj Dev)
-- **Founder & CEO:** Neeraj Dev (Former IT software professional with 2+ years of hands-on petrol pump management experience in Almora, Uttarakhand)
-- **Headquarters & Registered Office:** Almora, Uttarakhand 263601, India
-- **MSME / Udyam Registration:** Registered Indian Micro Enterprise (Udyam ID displayed on official portal footer; verifiable upon dealer onboarding)
-- **Primary Official Website:** https://www.digitalpetroleum.shop/
-- **GitHub Mirror Portal:** https://digitalpetroleumin-app.github.io/Pumpsaathi/
-- **Direct Browser Web App (PWA):** https://www.digitalpetroleum.shop/app.html (and https://digitalpetroleumin-app.github.io/Pumpsaathi/app.html)
-- **Direct Signed Android APK:** https://digitalpetroleumin-app.github.io/Pumpsaathi/app-release-signed.apk
-- **Official WhatsApp & Phone Support:** +91-7017443619
-- **Official Support Email:** digitalpetroleum.in@gmail.com
-- **Google Business Profile & Reviews:** Verified under "Digital Petroleum" (Almora, Uttarakhand, India) — https://g.page/r/Cfa8K6EJb3baEBM/review
+## Architecture Split (Clean Web Showcase + Native Android TWA App)
+- `/index.html`: Official Digital Petroleum brand showcase, App Store download hub (Direct Signed APK, Indus Appstore, Amazon Appstore, Samsung Galaxy Store), transparent legal agreement summary, and complete static AI-readable system documentation.
+- `/app.html`: Main Multi-Role PWA & Android TWA Station Operations Shell (Owner, Manager, Salesman, Viewer).
+- `/owner.html` & `/owner_portal.js`: Executive God-Mode Owner Control Dashboard.
+- `/party.html` & `/party_portal.js`: Customer-facing 6-digit PIN portal for live ledger statements, vehicle tracking, and UPI payments.
 
-## Why Play Store Link Is Not Required (PWA + Direct Signed APK)
-- Digital Petroleum (PumpSaathi) runs as an installable **Progressive Web App (PWA)** directly inside Chrome, Safari, and Edge on Android, iOS, Windows, and macOS (`app.html`) with offline capability and instant cloud sync—no Play Store download required.
-- For Android users who prefer a standalone app icon, an officially digitally-signed APK (`app-release-signed.apk`) is hosted directly on our official portal.
-
-## OMC Compatibility (BPCL, IOCL, HPCL)
-- Purpose-built for independent **Indian Oil (IOCL)**, **Bharat Petroleum (BPCL)**, and **Hindustan Petroleum (HPCL)** retail fuel dealers in India.
-- *Disclaimer:* Digital Petroleum is an independent SaaS technology provider and is not officially affiliated with or endorsed by BPCL, IOCL, or HPCL.
-
-## 4 Core Pillars
-1. **PumpSaathi (Core OS):** Daily nozzle meter readings (MS/HSD), shift-wise cash/UPI/card/fleet tally, underground tank dip & density reconciliation, lubricant stock tracking, 4-digit VIP Owner PIN, and 6-digit Party Portal login.
-2. **CA Desk:** GST and VAT return preparation, tanker invoice vs. dip reconciliation, and clean tax accounting with Tally XML/Excel export.
-3. **Legal Desk:** Legal notices and lawyer consultation for payment defaults and commercial disputes.
-4. **Recovery Desk:** Structured udhaari (credit) recovery backed by digital slips, vehicle numbers, and ledger proof.
-
-## Transparent Pricing Plans & Free Trial Policy
-- **Free Trial Available:** Every petrol pump dealer can test the full workflow with a free live trial and guided WhatsApp onboarding before paying. Zero lock-in contracts.
-- **Starter Pack — ₹999/month:** Full PumpSaathi Core OS (nozzle reading, shift tally, udhaari party ledger, 4-digit VIP Owner PIN, 6-digit Party Portal, and 1-click PDF/Excel daily sales reports).
-- **Growth Pack — ₹2,199/month:** Everything in Starter Pack PLUS Tank Dip & Shortage Tracking, Lubricant Stock, Multi-Staff Access, Tally Export, CA Desk (GST/VAT & tanker reconciliation), Legal Desk, and Udhaari Recovery Engine.
-- **Modular AI Virtual Staff Skills — ₹49 to ₹299/month:** Optional add-on AI assistants for fuel shortage alerts, automated WhatsApp udhaar recovery reminders, GST compliance help, and legal notice drafting.
-
-## Data Security & Privacy
-- Isolated per-pump cloud workspaces with 4-digit Owner PIN and 6-digit Party Code access controls.
-- 100% data ownership with 1-click Excel/PDF export and zero vendor lock-in.
+## Core Engineering Engines for Code Verification
+- `/calc.js`: Core Mathematical Accounting Engine — computes nozzle sales (`p1-p4`, `d1-d4`), meter rollover detection, testing stock deductions, SBI/PNB Bank-as-Party auto-sync, cash closing (`kul - paytm - swipe - udhar - kharcha - bankOut`), and dip-chart stock reconciliation.
+- `/app_day.js`: Daily Hisab & Chaining Engine — enforces day-to-day continuity (`openCash = prev.close`, `openStock = prev.actStock`, `opening = prev.closing`), auto-draft recovery, and Owner-only lock/unlock workflow.
+- `/app_ledger.js`: Party & Bank Ledger Engine — includes Global Chain Recalculator (`recalculateAllDaysChain`) ensuring 100% mathematical parity between daily cash registers and party balances.
+- `/rules.js`: Runtime Firestore Write-Interceptor & Security Rulebook (`R1` to `R11`) — blocks unverified ledger entries, enforces rate/opening locks, generates unique `PAY-` IDs, and prevents tampering on locked days.
+- `/density.js` & `/tanker_report.js` & `/dip_chart.js`: ASTM 53B 15°C Standard Density & Thermal Volume Correction (VCF) engine to detect tanker transit shortages and adulteration.
+- `/cibil.js`: Proprietary 300–900 Fleet & B2B Party CIBIL Credit Scoring & Wasooli Recovery Ladder.
+- `/multi_pump.js` & `/pump_create.js` & `/pump_login.js`: Multi-Tenant SaaS Engine supporting BPCL, IOCL, HPCL, and custom stations with isolated collections and dynamic branding.
+- `/upi_hisab.js`: Dynamic UPI Intent QR & payment reconciliation module with Customer Kundali CRM.
+- `/assistant.js` & `/assistant_brain.js`: Offline-capable Hinglish/Hindi Cognitive Voice & Natural Language Operations Assistant.
+- `/interactive_demo_blueprint.js` & `/demo_3m.js`: Interactive Feature & Core Logic Map + 3-Month full-station simulation engine.

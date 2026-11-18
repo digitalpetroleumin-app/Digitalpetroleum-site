@@ -1,7 +1,7 @@
 {
   "name": "PumpSaathi — Smart Petrol Pump OS",
   "short_name": "PumpSaathi",
-  "start_url": "./index.html",
+  "start_url": "./app.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#040b19",
