@@ -1,18 +1,19 @@
 User-agent: *
 Allow: /
-Allow: /llms.txt
-Allow: /avatars/
 
 User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
 Allow: /
 
 User-agent: Google-Extended
 Allow: /
 
-User-agent: ClaudeBot
-Allow: /
-
 User-agent: PerplexityBot
 Allow: /
 
-Sitemap: https://www.digitalpetroleum.shop/sitemap.xml
+User-agent: ClaudeBot
+Allow: /
+
+Sitemap: https://digitalpetroleumin-app.github.io/Pumpsaathi/sitemap.xml
